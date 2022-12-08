@@ -1,12 +1,29 @@
 pipeline {
+
   agent any
+
   options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-        }
-  stages {
-    stage('Hello') {
-      steps {
-        echo "hello"
-      }
-    }
+
+    buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
+
   }
+
+  stages {
+
+    stage('Hello') {
+
+      steps {
+
+        sh '''
+
+          java -version
+
+        '''
+
+      }
+
+    }
+
+  }
+
+}  
