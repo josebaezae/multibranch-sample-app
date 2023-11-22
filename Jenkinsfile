@@ -1,21 +1,14 @@
 pipeline {
-  agent {label 'linux'}
-  options {
-    buildDiscarder(logRotator(numToKeepStr: '5'))
-  }
-  stages {
-    stage('Build') {
-      steps {
-        sh './gradlew clean check --no-daemon'
-      }
+    agent any
+    options {
+        buildDiscarder logRotator (artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
+        disableConcurrentBuilds()
     }
-  }
-  post {
-    always {
-        junit(
-          allowEmptyResults: true, 
-          testResults: '**/build/test-results/test/*.xml'
-        )
+    stages {
+        stage('Example') {
+            steps {
+                echo 'Hello World'
+            }
+        }
     }
-  }
 }
