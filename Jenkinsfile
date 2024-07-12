@@ -1,5 +1,5 @@
 pipeline {
-  agent any
+  agent {label "Linux"}
   options {
     buildDiscarder logRotator(artifactDaysToKeepStr: '', artifactNumToKeepStr: '5', daysToKeepStr: '', numToKeepStr: '5')
     disableConcurrentBuilds()
@@ -9,6 +9,15 @@ pipeline {
       steps {
         echo "hello"
             }
+            }
+     stage('cat README') {
+        when { 
+          branch "fix-*"
+            }
+         steps {
+           sh '''
+             cat README.md
+             '''
             }
         }
   }
